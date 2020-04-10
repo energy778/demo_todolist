@@ -20,7 +20,9 @@ public class UserRepr {
     private String password;
 
     @NotEmpty
-    //    поле "повторите пароль"
+//    поле "повторите пароль"
+//    поле нужно только для уровня представления, в БД не идет
+//    в том числе из-за этого для слоя БД нужна отдельная сущность Entity, не нужно лепить всё в одну сущность
     private String matchingPassword;
 
     // TODO: 029 29.03.20 временно. ибо нахер светить пароль
@@ -29,8 +31,6 @@ public class UserRepr {
         return "UserRepr{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", matchingPassword='" + matchingPassword + '\'' +
                 '}';
     }
 
