@@ -23,7 +23,7 @@ public class UserRepr {
     //    поле "повторите пароль"
     private String matchingPassword;
 
-    // TODO: 029 29.03.20 временно
+    // TODO: 029 29.03.20 временно. ибо нахер светить пароль
     @Override
     public String toString() {
         return "UserRepr{" +
