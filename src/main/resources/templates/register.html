@@ -33,10 +33,12 @@
             </li>
         </ul>
 
-        <form class="form-inline my-2 my-lg-0">
+<!--        по современным стандартам безопасности доступ к logout-у должен происходить методом POST-->
+<!--        так в частности нельзя перейти по этой ссылке через адресную строку браузера-->
+        <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
             <a class="btn btn-outline-success my-2 my-sm-0" th:href="@{/login}">Login</a>
 <!--            кнопка будет отображаться только если пользователь авторизован-->
-            <a sec:authorize="isAuthenticated()" class="btn btn-outline-success my-2 my-sm-0" href="#">Logout</a>
+            <button type="submit" sec:authorize="isAuthenticated()" class="btn btn-outline-success my-2 my-sm-0">Logout</button>
             <a class="btn btn-outline-success my-2 my-sm-0" th:href="@{/register}">Register</a>
         </form>
     </div>
