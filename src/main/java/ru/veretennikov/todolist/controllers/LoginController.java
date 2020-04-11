@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 /**
  * регистрация новых пользователей и их вход в систему
-* */
+ */
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
