@@ -13,7 +13,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     boolean existsByUsername(String username);
 
 //    лучше через Optional<>, чтобы null мы могли обработать
-    Optional<User> findByUsername(String username);
-//    Optional<User> getUserByUsername(String username);
+    Optional<User> getUserByUsername(String username);
+//    Optional<User> findByUsername(String username);       - альтернативный вариант. разницы не увидел
 
 }

@@ -1,0 +1,21 @@
+server:
+  servlet:
+    context-path=/
+  port: 8082
+
+#однако помним, что стандартный порт постгреса 5432
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/todo_app_db
+    username: postgres
+    password: example
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lab:
+            #устраняет проблемы связки Spring с Postrgre SQL
+            non_contextual_creation: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update

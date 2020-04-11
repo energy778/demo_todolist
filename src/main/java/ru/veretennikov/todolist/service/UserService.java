@@ -23,7 +23,7 @@ public class UserService {
     public void create(UserRepr userRepr){
 
         User user = new User();
-//        user.setId(userRepr.getId());         // сгенерируется
+//        user.setId();                             // сгенерируется spring data
         user.setUsername(userRepr.getUsername());
         user.setPassword(passwordEncoder.encode(userRepr.getPassword()));
 
