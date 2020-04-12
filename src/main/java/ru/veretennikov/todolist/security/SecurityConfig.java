@@ -16,7 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+//    непонятно, почему выбран именно WebSecurityConfigurerAdapter, есть ли альтернативы?
+
+//    сервис для извлечения пользователей из бд для авторизации
     private final UserDetailsService userAuthService;
+//    кодировщик паролей
     private final PasswordEncoder passwordEncoder;
 
     @Bean
@@ -45,15 +49,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/").authenticated()                // только авторизованные
+                .antMatchers("/").authenticated()                // только авторизованные могут видеть главную страницу (список todo)
                 .and()
-                .formLogin()                                                // конфигурируем форму для логина
-                .loginPage("/login")
-                .loginProcessingUrl("/authenticateTheUser")                 // по какому адресу форма логина должна отправлять информацию, что пользователь хочет авторизоваться
-                .permitAll()                                                // к странице логина имеют доступ все пользователи, которые зашли на сайт
+                .formLogin()                                                // < конфигурируем форму для логина
+                .loginPage("/login")                                        // где она расположена
+                .loginProcessingUrl("/authenticateTheUser")                 // и по какому адресу она должна отправлять информацию, что пользователь хочет авторизоваться
+                .permitAll()                                                // к странице логина имеют доступ все пользователи, которые зашли на сайт >
                 .and()
                 .logout()                                                   // если есть login, то должен быть и logout. для logout используем конфигурацию по умолчанию
-                .logoutSuccessUrl("/login")
+                .logoutSuccessUrl("/login")                                 // после logout должен быть переход на форму login
                 .permitAll();
 
     }

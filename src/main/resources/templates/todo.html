@@ -36,10 +36,7 @@
 <!--        по современным стандартам безопасности доступ к logout-у должен происходить методом POST-->
 <!--        так в частности нельзя перейти по этой ссылке через адресную строку браузера-->
         <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
-            <a class="btn btn-outline-success my-2 my-sm-0" th:href="@{/login}">Login</a>
-<!--            кнопка будет отображаться только если пользователь авторизован-->
             <button type="submit" sec:authorize="isAuthenticated()" class="btn btn-outline-success my-2 my-sm-0">Logout</button>
-            <a class="btn btn-outline-success my-2 my-sm-0" th:href="@{/register}">Register</a>
         </form>
     </div>
 </nav>
@@ -47,14 +44,14 @@
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <form>
+            <form th:action="@{/todo/create}" th:object="${todo}" method="post">
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <input type="text" class="form-control" id="description" placeholder="Enter description">
+                    <input type="text" class="form-control" id="description" th:field="*{description}" placeholder="Enter description">
                 </div>
                 <div class="form-group">
                     <label for="target-date">Target date</label>
-                    <input type="date" class="form-control" id="target-date" >
+                    <input type="date" class="form-control" id="target-date" th:field="*{targetDate}">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
