@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path=/
+    context-path: /
   port: 8082
 
 #однако помним, что стандартный порт постгреса 5432
