@@ -19,7 +19,7 @@ public class User {
     private Long id;
 
     @OneToMany(
-            mappedBy = "user",          // поле таблицы ToDo (есть автокомплишн)
+            mappedBy = "user",          // поле таблицы _todo_ (есть автокомплишн)
             cascade = CascadeType.ALL,  // в 2 словах сложно. можно почитать например: https://habr.com/ru/post/271115/
             orphanRemoval = true        // типа "ведущее" из 1С: будем удалять те записи, в которых отсутствует значение поля, ответственного за связь
     )
