@@ -16,6 +16,8 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<maven.deploy.skip>true</maven.deploy.skip>
+		<heroku.apps.todo>todolistveretennikov</heroku.apps.todo>
 	</properties>
 
 	<dependencies>
@@ -78,13 +80,39 @@
 
 	</dependencies>
 
-<!--	нужен, чтобы корректно сформировать jar-ник, т.к. для spring (boot-а?) он особенный-->
 	<build>
 		<plugins>
+
+<!--нужен, чтобы корректно сформировать jar-ник, т.к. для spring (boot-а?) он особенный-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+<!--для упаковки приложения в dockerfile-контейнер-->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.13</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+<!--					<repository>registry.heroku.com/${project.artifactId}/web</repository>-->
+					<repository>registry.heroku.com/${heroku.apps.todo}/web</repository>
+					<tag>latest</tag>
+					<buildArgs>
+						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+					</buildArgs>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 

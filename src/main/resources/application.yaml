@@ -1,14 +1,16 @@
+#переменные окружения PORT, JDBC_DATABASE_URL etc нам поставляет сервис хостинга
+#указывать конкретный порт для запуска в облаке мы не можем
 server:
   servlet:
     context-path: /
-  port: 8082
+  port: ${PORT:8082}
 
-#однако помним, что стандартный порт постгреса 5432
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/todo_app_db
-    username: postgres
-    password: example
+    #однако помним, что стандартный порт постгреса 5432
+    url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5433/todo_app_db}
+    username: ${JDBC_DATABASE_USERNAME:postgres}
+    password: ${JDBC_DATABASE_PASSWORD:example}
   jpa:
     properties:
       hibernate:
