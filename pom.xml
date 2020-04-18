@@ -18,6 +18,8 @@
 		<java.version>1.8</java.version>
 		<maven.deploy.skip>true</maven.deploy.skip>
 		<heroku.apps.todo>todolistveretennikov</heroku.apps.todo>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
 	<dependencies>
@@ -84,34 +86,54 @@
 		<plugins>
 
 <!--нужен, чтобы корректно сформировать jar-ник, т.к. для spring (boot-а?) он особенный-->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.springframework.boot</groupId>-->
+<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--			</plugin>-->
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>build-info</goal>
+							</goals>
+							<configuration>
+								<additionalProperties>
+									<encoding.source>${project.build.sourceEncoding}</encoding.source>
+									<encoding.reporting>${project.reporting.outputEncoding}</encoding.reporting>
+									<java.source>${maven.compiler.source}</java.source>
+									<java.target>${maven.compiler.target}</java.target>
+								</additionalProperties>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
 
-<!--для упаковки приложения в dockerfile-контейнер-->
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>1.4.13</version>
-				<executions>
-					<execution>
-						<id>default</id>
-						<goals>
-							<goal>build</goal>
-							<goal>push</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-<!--					<repository>registry.heroku.com/${project.artifactId}/web</repository>-->
-					<repository>registry.heroku.com/${heroku.apps.todo}/web</repository>
-					<tag>latest</tag>
-					<buildArgs>
-						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
-				</configuration>
-			</plugin>
+<!--для упаковки приложения в Dockerfile-контейнер-->
+<!--			<plugin>-->
+<!--				<groupId>com.spotify</groupId>-->
+<!--				<artifactId>dockerfile-maven-plugin</artifactId>-->
+<!--				<version>1.4.13</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>default</id>-->
+<!--						<goals>-->
+<!--							<goal>build</goal>-->
+<!--							<goal>push</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--				<configuration>-->
+<!--&lt;!&ndash;					<repository>registry.heroku.com/${project.artifactId}/web</repository>&ndash;&gt;-->
+<!--					<repository>registry.heroku.com/${heroku.apps.todo}/web</repository>-->
+<!--					<tag>latest</tag>-->
+<!--					<buildArgs>-->
+<!--&lt;!&ndash;						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>&ndash;&gt;-->
+<!--						<JAR_FILE>${heroku.apps.todo}.jar</JAR_FILE>-->
+<!--					</buildArgs>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 
 		</plugins>
 	</build>
